@@ -13,19 +13,20 @@ namespace LINQTutorial
             //1. data source
             int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             //2. create query
-            var divBy2Query = from num in nums
-                              where num % 2 == 0
+            var andKeywordQuery = from num in nums
+                              where num % 2 == 1 && num<5
                               select num;
-            var greaterThan5Query = from num in nums
-                                    where num > 5
+            var multipleWhereQuery = from num in nums
+                                     where num%2==1
+                                    where num < 5
                                     select num;
             //3. execute query
-            foreach (var item in divBy2Query)
+            foreach (var item in andKeywordQuery)
             {
                 Console.WriteLine(item);
             }
             Console.WriteLine("----------------");
-            foreach (var item in greaterThan5Query)
+            foreach (var item in multipleWhereQuery)
             {
                 Console.WriteLine(item);
             }

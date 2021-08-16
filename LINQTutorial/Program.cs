@@ -10,23 +10,23 @@ namespace LINQTutorial
     {
         static void Main(string[] args)
         {
+            //using LINQ with Strings
             //1. data source
-            int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            string[] countries = { "United States", "China", "Germany", "Iceland", "India" };
             //2. create query
-            var andKeywordQuery = from num in nums
-                              where num % 2 == 1 && num<5
-                              select num;
-            var multipleWhereQuery = from num in nums
-                                     where num%2==1
-                                    where num < 5
-                                    select num;
+            var containsLetterI = from country in countries
+                                  where country.ToLower().Contains('i')
+                                  select country;
+            var equalsQuery= from country in countries
+                             where country.Equals("United States")
+                             select country;
             //3. execute query
-            foreach (var item in andKeywordQuery)
+            foreach (var item in containsLetterI)
             {
                 Console.WriteLine(item);
             }
-            Console.WriteLine("----------------");
-            foreach (var item in multipleWhereQuery)
+            Console.WriteLine("----------------------");
+            foreach (var item in equalsQuery)
             {
                 Console.WriteLine(item);
             }

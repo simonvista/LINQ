@@ -3,47 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace LINQTutorial
 {
     class Program
     {
-        static bool GetGermany(string str)
-        {
-            string Germany = "germany";
-            if (str.ToLower().Equals(Germany))
-            {
-                return true;
-            }
-            return false;
-        }
         static void Main(string[] args)
         {
-            //using functions with LINQ
+            //using LINQ with XML
             //1. data source
-            string[] countries = { "United States", "China", "Germany", "Iceland", "India" };
+            XDocument xml = XDocument.Load("C:/Users/YL/Desktop/Tutorials/C#/LINQ/CodeDoge/LINQTutorial/LINQTutorial/Sample.xml");
             //2. create query
-            var containsLetterI = from country in countries
-                                  where country.ToLower().Contains('i')
-                                  select country;
-            var equalsQuery= from country in countries
-                             where country.Equals("United States")
-                             select country;
-            var equalsMethodQuery = from country in countries
-                              where GetGermany(country)
-                              select country;
+            IEnumerable<string> listOfNames = from item in xml.Descendants("Name")
+                                              select (string)item;
+            IEnumerable<string> listOfAddressTypes = from item in xml.Descendants("Address")
+                                                     select (string)item.Attribute("Type");
             //3. execute query
-            foreach (var item in containsLetterI)
+            foreach (var item in listOfNames)
             {
                 Console.WriteLine(item);
             }
-            Console.WriteLine("----------------------");
-            foreach (var item in equalsQuery)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine("----------------------");
-            foreach (var item in equalsMethodQuery)
+            Console.WriteLine("-----------------------------");
+            foreach (var item in listOfAddressTypes)
             {
                 Console.WriteLine(item);
             }

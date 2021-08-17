@@ -19,6 +19,13 @@ namespace LINQTutorial
                                               select (string)item;
             IEnumerable<string> listOfAddressTypes = from item in xml.Descendants("Address")
                                                      select (string)item.Attribute("Type");
+            //IEnumerable<string> listOfPriocesLessThan40 = from item in xml.Descendants("USPrice")
+            //                                              where (float) item<40.0f
+            //                                              select (string)item;
+            IEnumerable<string> listOfPriocesLessThan40 = from item in xml.Descendants("Item")
+                                                          where (float)item.Element("USPrice") < 40.0f
+                                                          orderby (string)item.Element("ProductName")
+                                                          select (string)item.Element("ProductName");
             //3. execute query
             foreach (var item in listOfNames)
             {
@@ -26,6 +33,11 @@ namespace LINQTutorial
             }
             Console.WriteLine("-----------------------------");
             foreach (var item in listOfAddressTypes)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("-----------------------------");
+            foreach (var item in listOfPriocesLessThan40)
             {
                 Console.WriteLine(item);
             }
